@@ -4,6 +4,72 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: yellow;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+
+.container .lukas{
+    /*
+    max-height: 100vh;
+    */
+}
+
+.phone__container{
+    position: relative;
+    top: -40px;
+    left: -190px;
+}
+
+.phone-base{
+    position: absolute;
+    top: 25px;
+    left: 32px;
+}
+
+#handle__container{
+    position: absolute;
+    z-index: 10;
+}
+
+#blare{
+    position: absolute;
+    left: 23px;
+    top: 43px;
+    transform: rotate(75deg);
+    width: 50px;
+    opacity: 0;
+}
+
+#text__container{
+    position: absolute;
+    top: 123px;
+    left: 32px;
+}
+
+.phonetext{
+    white-space: nowrap;
+    font-weight: normal;
+    letter-spacing: 0.15rem;
+    color: yellow;
+    text-shadow:
+    3px 4px 1px #e712e7,
+    3px 6px 1px #0ee018,
+    4px 8px 1px #ea00ff,
+    4px 10px 1px #00c3ff,
+    5px 12px 1px #ff0000,
+    5px 14px 1px #427419;
+
+}
+
 .stand-platter{
 
 

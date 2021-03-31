@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MMP Phone</title>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="css/style.css">
+      <title>MMP Phone</title>
+
+      <script src="js/main.js" defer></script> <!-- 'defer' allows the JavaScript to execute only after the HTML file has been fully loaded -->
+
+      <link rel="stylesheet" href="css/style.css"/>
 
     </head>
 
     <body>
-        <div class="site-header">
-      <p class="site-title">Turtle Ipsum</p>
-      <p class="site-subtitle">The World's Premier Turtle Fan Club</p>
-    </div>
-    <div class="main-nav">
-      <p class="nav-header">Resources</p>
-      <div class="nav-list">
-        <p class="nav-item nav-item-bull"><a href="https://www.youtube.com/watch?v=CMNry4PE93Y">"I like turtles"</a></p>
-        <p class="nav-item nav-item-bull"><a href="https://en.wikipedia.org/wiki/Turtle">Basic Turtle Info</a></p>
-        <p class="nav-item nav-item-bull"><a href="https://en.wikipedia.org/wiki/Turtles_(chocolate)">Chocolate Turtles</a></p>
+
+      <div class="container">
+
+        <img class="lukas" src="images/lukas.png" alt="Picture of Lukas sitting at a desk"/>
+      
       </div>
-    </div>
-    <div class="main-content">
-      <div>
-        <p class="page-title">Welcome to Turtle Ipsum. 
-            <a href="">Click here</a> to learn more.
-        </p>
-        <p class="article-text">
-          Turtle ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-        </p>
-      </div>
-    </div>
-    <div class="footer">
-      <div class="footer-section">
-        <span class="button">Sign up for turtle news</span>
-      </div><div class="footer-section">
-        <p class="nav-header footer-title">
-          Internal Pages
-        </p>
-        <div class="nav-list">
-          <p class="nav-item nav-item-bull"><a href="../">Index</a></p>
-          <p class="nav-item nav-item-bull"><a href="../semantic">Semantic Example</a></p>
+
+      <div class="container">
+
+        <div class="phone__container">
+
+          <img class="phone-base" src="images/phone-base.png" alt="Picture of phone base"/>
+
+
+          <div id="handle__container">
+
+            <img class="phone-handle" id="handle" src="images/phone-handle.png" alt="Picture of phone handle"/>
+
+            <img id="blare" src="images/speakerblare.gif" alt="Gif of speaker blaring"/>
+
+          </div>
+
+
+          <div id="text__container">
+
+            <h1><span class="phonetext" id="textphone">MMP PHONE</span></h1>
+
+          </div>
+
         </div>
+
       </div>
-      <p class="footer-copyright">&copy; 2016 Instrument</span>
-    </div>
-        
+
+      <audio src="audio/pickup.mp3" id="pickup">Your browser doesn't support audio, friend.</audio>
+      <audio src="audio/putdown.mp3" id="putdown">Your browser doesn't support audio, friend.</audio>
+      <audio src="audio/ring.mp3" id="ring">Your browser doesn't support audio, friend.</audio>
+
     </body>
 
 </html>
