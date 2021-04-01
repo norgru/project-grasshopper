@@ -35,7 +35,18 @@ const pickup_phone = document.getElementById('pickup');
 const putdown_phone = document.getElementById('putdown');
 const ring_phone = document.getElementById('ring');
 
+setInterval(() => {
+    console.log(Math.round(Math.random()*16));
+}, 1000);
 
+
+let whtsthtRandom = [
+    document.getElementById('whtstht1'),
+    document.getElementById('whtstht2'),
+    document.getElementById('whtstht3'),
+]
+
+console.log(whtsthtRandom[0]);
 
 //DRAGGING PHONE HANDLE
 
@@ -49,7 +60,7 @@ function dragElement(draggableElement){
         
         function pointerDrag(e) {
             e.preventDefault();
-            console.log(e);
+            //console.log(e);
             
             pos3 = e.clientX;
             pos4 = e.clientY;
@@ -61,8 +72,6 @@ function dragElement(draggableElement){
 
         function elementDrag(e) {
             
-            
-
             pos1 = pos3 - e.clientX;
             pos2 = pos4 - e.clientY;
 
@@ -79,6 +88,11 @@ function dragElement(draggableElement){
             document.onpointerup = null;
             document.onpointermove = null;
 
+            pos1 = 0;
+            pos2 = 0;
+            pos3 = 0;
+            pos4 = 0;
+
             putdown_phone.play();
 
             document.getElementById("blare").style.opacity = 0;
@@ -89,6 +103,23 @@ function dragElement(draggableElement){
         function elementClick(){
 
             pickup_phone.play();
+
+            interactCounter++;
+            console.log(interactCounter);
+
+            var randDeterGif = document.createElement('img');
+            randDeterGif.src = 
+
+            function Deterrent(){
+
+                
+                whtstht.play();
+            }
+
+            if(interactCounter > 6){
+                console.log('Deterrent function condition met');
+                Deterrent();
+            }
 
             document.getElementById("blare").style.opacity = 1;
 
@@ -101,3 +132,13 @@ dragElement(document.getElementById('handle__container'));
 
 //todo: reset phone so it resets positon to origin
 //pickup and putdown sounds
+//add earrape scary cancer if you click too many times at the phone
+
+
+let interactCounter = 0;
+
+setInterval(() => {
+    console.log('1 second has elapsed, interactCounter reset');
+    interactCounter = 0;
+  }, 1000);
+
