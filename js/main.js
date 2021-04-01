@@ -34,6 +34,7 @@ setInterval(() => {
 const pickup_phone = document.getElementById('pickup');
 const putdown_phone = document.getElementById('putdown');
 const ring_phone = document.getElementById('ring');
+const tone_phone = document.getElementById('tone');
 
 const deterrentSound = document.getElementById('deterrent');
 
@@ -92,19 +93,21 @@ function dragElement(draggableElement){
             draggableElement.style.top = 0; // resets back to original position
             draggableElement.style.left = 0;
 
-
-
-            putdown_phone.play();
-
             document.getElementById("blare").style.opacity = 0;
 
             document.getElementById("handle__container").style.transform = 'rotate(0deg)';
+
+            putdown_phone.play()
+            tone_phone.muted = false;
+
         }
 
         function elementClick(){
 
-            
             pickup_phone.play();
+
+            tone_phone.currentTime = 0;
+            tone_phone.muted = false;
 
             interactCounter++;
             console.log(`Times interacted with handle within a second: ${interactCounter}`);
@@ -153,6 +156,14 @@ function dragElement(draggableElement){
                 Deterrent();
 
             }
+            else if(interactCounter > 0){
+                setTimeout(() => {
+
+                    //ring_phone.play();
+                    console.log('the phone rings');
+
+                }, 3000);
+            }
 
             document.getElementById("blare").style.opacity = 1;
 
@@ -162,15 +173,6 @@ function dragElement(draggableElement){
 }
 
 dragElement(document.getElementById('handle__container'));
-
-
-
-setTimeout(() => {
-
-    ring_phone.currentTime = 0;
-    ring_phone.muted = false;
-
-}, 5000);
 
 //add earrape scary cancer if you click too many times at the phone
 
