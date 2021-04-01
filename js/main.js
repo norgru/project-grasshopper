@@ -6,12 +6,12 @@ setInterval(() => {
     let randomColorHash = `#${randomColor}` //adding a # to randomcolor
 
     document.getElementById("textphone").style.textShadow = `
-    3px 4px 1px ${randomColorHash},
-    3px 6px 1px ${randomColorHash},
-    4px 8px 1px ${randomColorHash},
-    4px 10px 1px ${randomColorHash},
-    5px 12px 1px ${randomColorHash},
-    5px 14px 1px ${randomColorHash}`;
+    3px 4px 2px ${randomColorHash},
+    3px 6px 2px ${randomColorHash},
+    4px 8px 2px ${randomColorHash},
+    4px 10px 2px ${randomColorHash},
+    5px 12px 2px ${randomColorHash},
+    5px 14px 2px ${randomColorHash}`;
 
     //console.log(randomColor);
 
@@ -29,24 +29,25 @@ setInterval(() => {
 }, 200);
 
 
-//PHONE SOUNDS
+//PHONE SOUNDS + GIFS
 
 const pickup_phone = document.getElementById('pickup');
 const putdown_phone = document.getElementById('putdown');
 const ring_phone = document.getElementById('ring');
 
-setInterval(() => {
-    console.log(Math.round(Math.random()*16));
-}, 1000);
+const deterrentSound = document.getElementById('deterrent');
 
-
-let whtsthtRandom = [
-    document.getElementById('whtstht1'),
-    document.getElementById('whtstht2'),
-    document.getElementById('whtstht3'),
+const detSounds = [
+    'audio/det1.mp3',
+    'audio/det2.mp3',
+    'audio/det3.mp3'
 ]
 
-console.log(whtsthtRandom[0]);
+const detGifs = [
+    'images/det1.gif',
+    'images/det2.gif',
+    'images/det3.gif'
+];
 
 //DRAGGING PHONE HANDLE
 
@@ -88,10 +89,10 @@ function dragElement(draggableElement){
             document.onpointerup = null;
             document.onpointermove = null;
 
-            pos1 = 0;
-            pos2 = 0;
-            pos3 = 0;
-            pos4 = 0;
+            draggableElement.style.top = 0; // resets back to original position
+            draggableElement.style.left = 0;
+
+
 
             putdown_phone.play();
 
@@ -102,23 +103,55 @@ function dragElement(draggableElement){
 
         function elementClick(){
 
+            
             pickup_phone.play();
 
             interactCounter++;
-            console.log(interactCounter);
+            console.log(`Times interacted with handle within a second: ${interactCounter}`);
 
-            var randDeterGif = document.createElement('img');
-            randDeterGif.src = 
 
             function Deterrent(){
 
-                
-                whtstht.play();
+                //choosing a random deterrent sound
+                let randSoundNum = Math.floor(Math.random() * detSounds.length);
+
+                deterrentSound.src = detSounds[randSoundNum];
+
+                console.log(`This is the random sound number: ${randSoundNum}`);
+
+                let deterrentSoundLength = deterrentSound.duration;
+
+                deterrentSound.play();
+
+                //choosing a random gif
+                let randGifNum = Math.floor(Math.random() * detGifs.length);
+
+                document.getElementById("gif").src = detGifs[randGifNum];
+
+                console.log(`This is the random gif number: ${randGifNum}`);
+
+                //showing the gif
+                document.getElementById("gif__container").style.display = "block";
+
+                document.getElementById("handle__container").style.display = "none";
+
+                //hiding gif again after a time
+                setTimeout(() => {
+                    document.getElementById("gif__container").style.display = "none";
+                    document.getElementById("handle__container").style.display = "block";
+                }, 9000); //deterrentSoundLength is meant to be here
+
+                //whtstht[Math.round(Math.random()*16)].play(); // play random sound from array no 0 to 16
             }
 
             if(interactCounter > 6){
+
+                interactCounter = 0;
+
                 console.log('Deterrent function condition met');
+
                 Deterrent();
+
             }
 
             document.getElementById("blare").style.opacity = 1;
@@ -130,10 +163,16 @@ function dragElement(draggableElement){
 
 dragElement(document.getElementById('handle__container'));
 
-//todo: reset phone so it resets positon to origin
-//pickup and putdown sounds
-//add earrape scary cancer if you click too many times at the phone
 
+
+setTimeout(() => {
+
+    ring_phone.currentTime = 0;
+    ring_phone.muted = false;
+
+}, 5000);
+
+//add earrape scary cancer if you click too many times at the phone
 
 let interactCounter = 0;
 

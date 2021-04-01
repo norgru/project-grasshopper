@@ -49,7 +49,7 @@ body{
     opacity: 0;
 }
 
-#text__container{
+#phone__label{
     position: absolute;
     top: 123px;
     left: 32px;
@@ -58,7 +58,7 @@ body{
 .phonetext{
     white-space: nowrap;
     font-weight: normal;
-    letter-spacing: 0.15rem;
+    letter-spacing: 0.17rem;
     color: yellow;
     text-shadow:
     3px 4px 1px #e712e7,
@@ -68,6 +68,21 @@ body{
     5px 12px 1px #ff0000,
     5px 14px 1px #427419;
 
+}
+
+#notice__container{
+    position: absolute;
+    top: 190px;
+    left: 63px;
+}
+
+#notice{
+    white-space: nowrap;
+    font-weight: normal;
+}
+
+#gif__container{
+    display: none;
 }
 
 .stand-platter{
