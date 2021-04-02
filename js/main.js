@@ -28,7 +28,6 @@ setInterval(() => {
 
 }, 200);
 
-
 //PHONE SOUNDS + GIFS
 
 const pickup_phone = document.getElementById('pickup');
@@ -50,6 +49,40 @@ const detGifs = [
     'images/det3.gif'
 ];
 
+
+
+//GAME LOGIC
+
+let holdingPhone;
+
+const phoneAudioEnum = {
+    ABSOLUTE: 'absolute',
+    RANDOM: 'random'
+}
+
+const phoneAudioLogic = [
+    {
+        mode: phoneAudioEnum.ABSOLUTE,
+        value: pickup_phone,
+    },
+
+    {
+        mode: phoneAudioEnum.ABSOLUTE,
+        value: tone_phone,
+    },
+
+    {
+        mode: phoneAudioEnum.RANDOM,
+        value: detSounds,
+    }
+
+]
+
+
+
+
+
+
 //DRAGGING PHONE HANDLE
 
 function dragElement(draggableElement){
@@ -58,7 +91,9 @@ function dragElement(draggableElement){
         pos3 = 0,
         pos4 = 0;
 
-        draggableElement.onpointerdown = pointerDrag;
+    draggableElement.onpointerdown = pointerDrag;
+
+    
         
         function pointerDrag(e) {
             e.preventDefault();
@@ -87,6 +122,9 @@ function dragElement(draggableElement){
         }
 
         function stopElementDrag() {
+
+            holdingPhone = false;
+
             document.onpointerup = null;
             document.onpointermove = null;
 
@@ -97,17 +135,30 @@ function dragElement(draggableElement){
 
             document.getElementById("handle__container").style.transform = 'rotate(0deg)';
 
+
             putdown_phone.play()
             tone_phone.muted = false;
+
 
         }
 
         function elementClick(){
 
+            holdingPhone = true;
+
+            pickupPhoneDuration = pickup_phone.duration*1000;
+
             pickup_phone.play();
 
+            setTimeout(() => {
+                tone_phone.play()
+            }, pickupPhoneDuration);
+
+
+
+
             tone_phone.currentTime = 0;
-            tone_phone.muted = false;
+            tone_phone.muted = true;
 
             interactCounter++;
             console.log(`Times interacted with handle within a second: ${interactCounter}`);
@@ -122,7 +173,15 @@ function dragElement(draggableElement){
 
                 console.log(`This is the random sound number: ${randSoundNum}`);
 
-                let deterrentSoundLength = deterrentSound.duration;
+                let deterrentSoundLength = undefined;
+
+                deterrentSound.onloadedmetadata = function(){
+                    console.log(deterrentSound.duration*1000);
+
+                }
+
+
+                console.log(deterrentSoundLength);
 
                 deterrentSound.play();
 
@@ -183,3 +242,24 @@ setInterval(() => {
     interactCounter = 0;
   }, 1000);
 
+
+//GAME LOGIC (UPDATE)
+let currentAudioPath = false;
+
+function playAudioPath(audioPath){
+
+    audioPath.forEach((path, i) => {
+        
+    });
+
+}
+
+setInterval(() => {
+
+    if(holdingPhone && !currentAudioPath){
+        currentAudioPath = phoneAudioLogic;
+    }
+
+
+
+}, 10);
