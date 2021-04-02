@@ -49,6 +49,11 @@ const detGifs = [
     'images/det3.gif'
 ];
 
+const mmpSounds = [
+    'audio/mmp/mmp1.mp3',
+    'audio/mmp/mmp2.mp3',
+    'audio/mmp/mmp3.mp3'
+]
 
 
 //GAME LOGIC
@@ -56,8 +61,10 @@ const detGifs = [
 let holdingPhone;
 
 const phoneAudioEnum = {
+
     ABSOLUTE: 'absolute',
     RANDOM: 'random'
+
 }
 
 const phoneAudioLogic = [
@@ -136,8 +143,8 @@ function dragElement(draggableElement){
             document.getElementById("handle__container").style.transform = 'rotate(0deg)';
 
 
-            putdown_phone.play()
-            tone_phone.muted = false;
+            //putdown_phone.play()
+            //tone_phone.muted = false;
 
 
         }
@@ -146,6 +153,7 @@ function dragElement(draggableElement){
 
             holdingPhone = true;
 
+            /*
             pickupPhoneDuration = pickup_phone.duration*1000;
 
             pickup_phone.play();
@@ -153,7 +161,7 @@ function dragElement(draggableElement){
             setTimeout(() => {
                 tone_phone.play()
             }, pickupPhoneDuration);
-
+            */
 
 
 
@@ -161,7 +169,7 @@ function dragElement(draggableElement){
             tone_phone.muted = true;
 
             interactCounter++;
-            console.log(`Times interacted with handle within a second: ${interactCounter}`);
+            //console.log(`Times interacted with handle within a second: ${interactCounter}`);
 
 
             function Deterrent(){
@@ -219,7 +227,7 @@ function dragElement(draggableElement){
                 setTimeout(() => {
 
                     //ring_phone.play();
-                    console.log('the phone rings');
+                    //console.log('the phone rings');
 
                 }, 3000);
             }
@@ -238,28 +246,100 @@ dragElement(document.getElementById('handle__container'));
 let interactCounter = 0;
 
 setInterval(() => {
-    console.log('1 second has elapsed, interactCounter reset');
+    //console.log('1 second has elapsed, interactCounter reset');
     interactCounter = 0;
   }, 1000);
 
 
+
+let mmpSoundsAmount = 3; // NUMBER OF RANDOM MMP SOUND FILES
+
 //GAME LOGIC (UPDATE)
 let currentAudioPath = false;
 
-function playAudioPath(audioPath){
+async function playAudioPath(audioPath){
 
-    audioPath.forEach((path, i) => {
-        
-    });
+    await Promise.all(audioPath.map(async (path, i) => {
+        switch(path.mode){
+            
+            case phoneAudioEnum.ABSOLUTE:
 
+                await playAudio(path.value)
+
+                break;
+
+            case phoneAudioEnum.RANDOM:
+
+                let index = Math.floor(Math.random() * mmpSoundsAmount-1); // random number 0-3
+
+                await playAudio(path.value[index]);
+
+                break;
+
+            default:
+
+
+        }
+
+    }));
+
+}
+
+async function playAudio(audio){
+
+    if(audio instanceof HTMLElement){
+
+        console.log('This is a pre-loaded audio tag');
+
+        audio.play();
+        console.log('lets do this');
+
+        return new Promise(resolve => {
+
+            setTimeout(() => {
+
+                resolve();
+
+            }, audio.duration*1000);
+
+        });
+    }
+    
+    else if(typeof audio == String){
+
+        console.log('This is a string');
+
+        var _audio = new Audio(audio);
+
+        _audio.onloadedmetadata(() => {
+            _audio.play();
+
+            return new Promise(resolve => {
+
+                setTimeout(() => {
+    
+                    resolve();
+    
+                }, _audio.duration*1000);
+    
+            });
+
+
+        })
+
+    }
 }
 
 setInterval(() => {
 
     if(holdingPhone && !currentAudioPath){
+
         currentAudioPath = phoneAudioLogic;
+
+        playAudioPath(currentAudioPath);
+
+
+
     }
-
-
 
 }, 10);
