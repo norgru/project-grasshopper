@@ -294,15 +294,8 @@ async function playAudio(audio){
         audio.play();
         console.log('lets do this');
 
-        return new Promise(resolve => {
+        return onAudioFinish(audio);
 
-            setTimeout(() => {
-
-                resolve();
-
-            }, audio.duration*1000);
-
-        });
     }
     
     else if(typeof audio == String){
@@ -314,27 +307,44 @@ async function playAudio(audio){
         _audio.onloadedmetadata(() => {
             _audio.play();
 
-            return new Promise(resolve => {
-
-                setTimeout(() => {
-    
-                    resolve();
-    
-                }, _audio.duration*1000);
-    
-            });
+            return onAudioFinish(_audio);
 
 
         })
 
     }
+};
+
+async function onAudioFinish(_audio){
+    
+    return new Promise(resolve => {
+
+        setTimeout(() => {
+
+            //setCurrentAudioPath(null);
+
+            console.log('This is the end of the audio duration.', _audio.duration*1000);
+            
+            _audio.pause();
+
+            resolve();
+
+        }, _audio.duration*1000);
+
+    });
+}
+
+function setCurrentAudioPath(path){
+
+    currentAudioPath = path;
+
 }
 
 setInterval(() => {
 
     if(holdingPhone && !currentAudioPath){
 
-        currentAudioPath = phoneAudioLogic;
+        setCurrentAudioPath(phoneAudioLogic);
 
         playAudioPath(currentAudioPath);
 
